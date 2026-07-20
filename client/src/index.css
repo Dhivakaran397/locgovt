@@ -1,0 +1,374 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ROOT GOVERNMENT DESIGN SYSTEM TOKENS — LocGovt CITIZEN PORTAL
+═══════════════════════════════════════════════════════════════════════════ */
+:root {
+  --bg-base:        #f4f6f9;
+  --bg-surface:     #ffffff;
+  --bg-elevated:    #ffffff;
+  --bg-overlay:     rgba(15, 41, 74, 0.4);
+
+  --gov-navy:       #0f294a;
+  --gov-blue:       #1a5fb4;
+  --gov-saffron:    #f37021;
+  --gov-green:      #0d7a3c;
+  --gov-gray:       #64748b;
+  --gov-border:     #e2e8f0;
+
+  --text-primary:   #1e293b;
+  --text-secondary: #475569;
+  --text-muted:     #94a3b8;
+
+  --radius-sm:      6px;
+  --radius-md:      8px;
+  --radius-lg:      12px;
+  --radius-xl:      16px;
+  --radius-2xl:     24px;
+
+  --transition-base:   0.2s ease-in-out;
+  --transition-spring: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BASE RESETS & LIGHT MODERN SCHEME
+═══════════════════════════════════════════════════════════════════════════ */
+html, body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LAYOUT UTILITIES
+═══════════════════════════════════════════════════════════════════════════ */
+@layer components {
+  .page-wrapper {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6;
+  }
+
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* ── Flag Tricolor Ribbon ────────────────────────────────────────── */
+  .tricolor-ribbon {
+    height: 4px;
+    background: linear-gradient(90deg, #ff9933 0%, #ff9933 33.33%, #ffffff 33.33%, #ffffff 66.66%, #138808 66.66%, #138808 100%);
+    width: 100%;
+  }
+
+  /* ── Official Government Cards ───────────────────────────────────── */
+  .glass-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--gov-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 12px rgba(15, 41, 74, 0.03);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  }
+
+  .glass-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(15, 41, 74, 0.06);
+    border-color: #cbd5e1;
+  }
+
+  .glass-card-cyan {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-radius: var(--radius-lg);
+  }
+
+  .glass-card-green {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: var(--radius-lg);
+  }
+
+  .glass-card-purple {
+    background: #faf5ff;
+    border: 1px solid #e9d5ff;
+    border-radius: var(--radius-lg);
+  }
+
+  .glass-card-amber {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: var(--radius-lg);
+  }
+
+  /* ── Panel / Elevated Surface ────────────────────────────────────── */
+  .panel {
+    background: var(--bg-surface);
+    border: 1px solid var(--gov-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .panel-elevated {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.03);
+  }
+
+  /* ── Modal Overlay ──────────────────────────────────────────────── */
+  .modal-overlay {
+    @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+    background: rgba(15, 41, 74, 0.5);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.2s ease;
+  }
+
+  .modal-content {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: var(--radius-xl);
+    box-shadow: 0 20px 40px rgba(15, 41, 74, 0.12);
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease-out;
+  }
+
+  /* ── Section Labels ─────────────────────────────────────────────── */
+  .section-label {
+    @apply text-xs font-bold uppercase tracking-wider text-gov-navy;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  .section-label-purple {
+    @apply text-xs font-bold uppercase tracking-wider text-gov-blue;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  .section-label-green {
+    @apply text-xs font-bold uppercase tracking-wider text-gov-green;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  /* ── Status Dots ────────────────────────────────────────────────── */
+  .status-dot {
+    @apply inline-block w-2.5 h-2.5 rounded-full flex-shrink-0;
+  }
+
+  .status-up {
+    background: var(--gov-green);
+    box-shadow: 0 0 0 4px rgba(13, 122, 60, 0.15);
+  }
+
+  .status-down {
+    background: #dc2626;
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.15);
+  }
+
+  /* ── Badges ─────────────────────────────────────────────────────── */
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider;
+  }
+
+  .badge-cyan {
+    background: #e0f2fe;
+    border: 1px solid #bae6fd;
+    color: #0369a1;
+  }
+
+  .badge-green {
+    background: #dcfce7;
+    border: 1px solid #bbf7d0;
+    color: #15803d;
+  }
+
+  .badge-purple {
+    background: #f3e8ff;
+    border: 1px solid #e9d5ff;
+    color: #6b21a8;
+  }
+
+  .badge-amber {
+    background: #fef3c7;
+    border: 1px solid #fde68a;
+    color: #b45309;
+  }
+
+  .badge-red {
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+  }
+
+  .badge-glass {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+  }
+
+  /* ── Buttons ─────────────────────────────────────────────────────── */
+  .btn-base {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-xs font-bold tracking-wider uppercase transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gov-blue disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-sm {
+    @apply px-3 py-1.5 rounded;
+  }
+
+  .btn-lg {
+    @apply text-sm px-6 py-3 rounded-lg;
+  }
+
+  .btn-cyan {
+    @apply btn-base;
+    background: var(--gov-navy);
+    color: #ffffff;
+    border: 1px solid var(--gov-navy);
+  }
+  .btn-cyan:hover:not(:disabled) {
+    background: #153965;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(15, 41, 74, 0.15);
+  }
+  .btn-cyan:active:not(:disabled) { transform: translateY(0); }
+
+  .btn-purple {
+    @apply btn-base;
+    background: var(--gov-blue);
+    color: #ffffff;
+    border: 1px solid var(--gov-blue);
+  }
+  .btn-purple:hover:not(:disabled) {
+    background: #114488;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(26, 95, 180, 0.15);
+  }
+
+  .btn-green {
+    @apply btn-base;
+    background: var(--gov-green);
+    color: #ffffff;
+    border: 1px solid var(--gov-green);
+  }
+  .btn-green:hover:not(:disabled) {
+    background: #09592b;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(13, 122, 60, 0.15);
+  }
+
+  .btn-ghost {
+    @apply btn-base;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    color: #475569;
+  }
+  .btn-ghost:hover:not(:disabled) {
+    background: #f8fafc;
+    border-color: #94a3b8;
+    color: #1e293b;
+  }
+
+  .btn-danger {
+    @apply btn-base;
+    background: #dc2626;
+    border: 1px solid #dc2626;
+    color: #ffffff;
+  }
+  .btn-danger:hover:not(:disabled) {
+    background: #b91c1c;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.15);
+  }
+
+  /* ── Form Inputs ─────────────────────────────────────────────────── */
+  .input-field {
+    @apply w-full px-4 py-2.5 text-sm rounded-lg outline-none transition-all duration-200;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    color: var(--text-primary);
+  }
+  .input-field::placeholder { color: #94a3b8; }
+  .input-field:hover { border-color: #94a3b8; }
+  .input-field:focus {
+    border-color: var(--gov-blue);
+    box-shadow: 0 0 0 3px rgba(26, 95, 180, 0.1);
+  }
+  .input-field:disabled { background: #f1f5f9; cursor: not-allowed; }
+
+  select.input-field option {
+    background: #ffffff;
+    color: var(--text-primary);
+  }
+
+  /* ── Skeleton Loaders ─────────────────────────────────────────────── */
+  .skeleton {
+    @apply rounded-lg;
+    background: linear-gradient(90deg,
+      #f1f5f9 25%,
+      #e2e8f0 50%,
+      #f1f5f9 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  /* ── XP Progress Bar ──────────────────────────────────────────────── */
+  .xp-bar-track {
+    @apply w-full h-2 rounded-full overflow-hidden bg-slate-200;
+  }
+
+  .xp-bar-fill {
+    @apply h-full rounded-full;
+    background: linear-gradient(90deg, var(--gov-navy) 0%, var(--gov-blue) 100%);
+    transition: width 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   KEYFRAME ANIMATIONS
+═══════════════════════════════════════════════════════════════════════════ */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TOAST NOTIFICATION (Light clean version)
+═══════════════════════════════════════════════════════════════════════════ */
+.toast-container {
+  @apply fixed bottom-5 right-5 z-[9999] flex flex-col gap-3;
+}
+
+.toast-item {
+  @apply flex items-start gap-3 p-4 rounded-xl;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 12px 32px rgba(15, 41, 74, 0.08);
+  min-width: 300px;
+  max-width: 400px;
+  animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.toast-progress {
+  @apply absolute bottom-0 left-0 h-0.5 rounded-full;
+  transition: width linear;
+}
