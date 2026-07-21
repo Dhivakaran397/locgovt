@@ -273,11 +273,29 @@ const GuidelinesModal = ({ service, onClose, t }) => {
     return t('navHome') === 'முகப்பு' ? 'ta' : t('navHome') === 'होम' ? 'hi' : 'en';
   });
   const cleanTitle = (service?.serviceName || '').replace(/—|-|\(.*?\)/g, ' ').replace(/\s+/g, ' ').trim();
-  const youtubeSearchUrl = service?.videoUrl || (
-    cleanTitle.toLowerCase().includes('aadhaar')
-      ? 'https://youtu.be/oNFAbvzfsNQ'
-      : `https://www.youtube.com/results?search_query=${encodeURIComponent(cleanTitle + ' how to apply step by step tutorial')}`
-  );
+  const lowerTitle = cleanTitle.toLowerCase();
+
+  // 🎯 Map specific keywords to EXACT Direct YouTube Video Links
+  const DIRECT_VIDEO_MAP = {
+    'aadhaar': 'https://youtu.be/oNFAbvzfsNQ',
+    'pan card': 'https://youtu.be/J7Y1h-6-N8w', // Replace with real PAN link
+    'voter': 'https://youtu.be/v9C2gK2N7-Q',     // Replace with real Voter ID link
+    'passport': 'https://youtu.be/gU9G7nUa5Q8', // Replace with real Passport link
+    'patta': 'https://youtu.be/3t0g0c-N7p4',    // Replace with real Patta link
+    'ration': 'https://youtu.be/q0_9t3Jt-gQ'    // Replace with real Ration Card link
+  };
+
+  // Find if current service matches any predefined exact video link
+  let exactDirectUrl = null;
+  for (const [keyword, url] of Object.entries(DIRECT_VIDEO_MAP)) {
+    if (lowerTitle.includes(keyword)) {
+      exactDirectUrl = url;
+      break;
+    }
+  }
+
+  // Use DB videoUrl, OR matched Exact URL, OR default to YouTube Search
+  const youtubeSearchUrl = service?.videoUrl || exactDirectUrl || `https://www.youtube.com/results?search_query=${encodeURIComponent(cleanTitle + ' how to apply step by step tutorial')}`;
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
