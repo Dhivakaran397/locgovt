@@ -101,7 +101,7 @@ const App = () => (
                 </div>
 
                 {/* Copyright info */}
-                <div className="text-right text-xs text-slate-500 font-mono">
+                <div className="text-right text-xs text-slate-500 font-mono pr-16 md:pr-20">
                   <p>© {new Date().getFullYear()} LocGovt</p>
                   <p className="text-[10px] text-gov-navy font-bold mt-1">Developed by @Dhivakaran</p>
                   <p className="text-[9px] text-slate-400 mt-0.5">MeitY Guidelines Compliant</p>
