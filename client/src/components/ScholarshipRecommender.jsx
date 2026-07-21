@@ -171,6 +171,24 @@ export default function ScholarshipRecommender() {
   });
   const [results, setResults] = useState(null);
   const [isSearching, setIsSearching] = useState(false);
+  const [selectedScheme, setSelectedScheme] = useState(null);
+  const [savedSchemes, setSavedSchemes] = useState([]);
+
+  const toggleSave = (id) => {
+    if (savedSchemes.includes(id)) {
+      setSavedSchemes(savedSchemes.filter(s => s !== id));
+    } else {
+      setSavedSchemes([...savedSchemes, id]);
+    }
+  };
+
+  const getDocsForScheme = (scheme) => {
+    const docs = ['Aadhaar Card', 'Bank Passbook', 'Passport Size Photo'];
+    if (scheme.eligibility.community) docs.push('Community Certificate');
+    if (scheme.eligibility.govtSchool) docs.push('Bonafide Certificate (6th-12th)');
+    if (scheme.eligibility.firstGrad) docs.push('First Graduate Certificate');
+    return docs;
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -370,15 +388,25 @@ export default function ScholarshipRecommender() {
                       {item.desc[locale] || item.desc.en}
                     </p>
                     
-                    <div className="flex justify-end">
-                      <a 
-                        href={item.url} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-50 hover:bg-gov-navy text-gov-navy hover:text-white border border-slate-200 hover:border-transparent text-xs font-bold rounded-lg transition-colors"
+                    <div className="flex flex-wrap items-center justify-end gap-2 mt-4">
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleSave(item.id);
+                        }}
+                        className={`p-2 rounded-lg border transition-colors ${savedSchemes.includes(item.id) ? 'bg-amber-100 border-amber-300 text-amber-700' : 'bg-slate-50 border-slate-200 text-slate-400 hover:text-amber-500 hover:border-amber-200'}`}
+                        title="Save/Bookmark"
                       >
-                        {getLabel(locale, 'Apply Now', 'விண்ணப்பிக்க', 'अभी आवेदन करें')} ↗
-                      </a>
+                        <svg className="w-4 h-4" fill={savedSchemes.includes(item.id) ? "currentColor" : "none"} viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" /></svg>
+                      </button>
+
+                      <button 
+                        onClick={() => setSelectedScheme(item)}
+                        className="px-3 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 hover:border-blue-300 text-xs font-bold rounded-lg transition-colors cursor-pointer flex items-center gap-1.5"
+                      >
+                        📋 {getLabel(locale, 'How to Apply', 'விண்ணப்பிக்கும் முறை', 'आवेदन कैसे करें')}
+                      </button>
+
                     </div>
                   </div>
                 ))}
@@ -387,6 +415,66 @@ export default function ScholarshipRecommender() {
           )}
         </div>
       </div>
+
+      {selectedScheme && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in">
+          <div className="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+            <div className="p-5 border-b border-slate-100 flex justify-between items-start bg-slate-50">
+              <div>
+                <span className="text-[10px] font-bold tracking-wider text-blue-600 uppercase mb-1 block">Application Guide</span>
+                <h3 className="font-black font-display text-gov-navy text-lg leading-tight">
+                  {selectedScheme.name[locale] || selectedScheme.name.en}
+                </h3>
+              </div>
+              <button onClick={() => setSelectedScheme(null)} className="p-1.5 bg-white border border-slate-200 hover:bg-slate-100 rounded-lg text-slate-500">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+            </div>
+            
+            <div className="p-6 overflow-y-auto space-y-6">
+              <div>
+                <h4 className="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2">
+                  <span className="p-1 bg-amber-100 text-amber-700 rounded-md">📋</span> 
+                  {getLabel(locale, 'Documents Required:', 'தேவையான ஆவணங்கள்:', 'आवश्यक दस्तावेज़:')}
+                </h4>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {getDocsForScheme(selectedScheme).map((doc, i) => (
+                    <li key={i} className="flex items-center gap-2 text-xs font-medium text-slate-600 bg-slate-50 border border-slate-100 p-2 rounded-lg">
+                      <svg className="w-3.5 h-3.5 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7"/></svg>
+                      {doc}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2">
+                  <span className="p-1 bg-blue-100 text-blue-700 rounded-md">🚀</span> 
+                  {getLabel(locale, 'Action Center:', 'செயல் மையம்:', 'कार्रवाई केंद्र:')}
+                </h4>
+                <div className="space-y-2">
+                  <a href={`https://www.youtube.com/results?search_query=${encodeURIComponent((selectedScheme.name.ta || selectedScheme.name.en) + ' how to apply')}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-3 rounded-lg border border-slate-200 hover:border-red-300 hover:bg-red-50/50 transition-colors group">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-red-100 text-slate-600 group-hover:text-red-600 transition-colors">🎥</div>
+                      <div>
+                        <div className="text-sm font-bold text-slate-800 group-hover:text-red-700">{getLabel(locale, 'Watch Tutorial', 'வழிகாட்டி வீடியோ', 'ट्यूटोरियल देखें')}</div>
+                        <div className="text-[10px] text-slate-500">Step-by-step YouTube guide</div>
+                      </div>
+                    </div>
+                    <svg className="w-4 h-4 text-slate-400 group-hover:text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            <div className="p-4 border-t border-slate-100 bg-slate-50 text-center">
+              <button onClick={() => setSelectedScheme(null)} className="btn-cyan px-8 py-2.5 text-xs">
+                {getLabel(locale, 'Close', 'மூடு', 'बंद करें')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
