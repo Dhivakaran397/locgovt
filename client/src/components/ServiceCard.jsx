@@ -272,6 +272,9 @@ const GuidelinesModal = ({ service, onClose, t }) => {
   const [guideLocale, setGuideLocale] = useState(() => {
     return t('navHome') === 'முகப்பு' ? 'ta' : t('navHome') === 'होम' ? 'hi' : 'en';
   });
+  const [showVideoModal, setShowVideoModal] = useState(false);
+  const cleanTitle = (service?.serviceName || '').replace(/—|-|\(.*?\)/g, ' ').replace(/\s+/g, ' ').trim();
+  const youtubeSearchUrl = service?.videoUrl || `https://www.youtube.com/results?search_query=${encodeURIComponent(cleanTitle + ' how to apply step by step tutorial')}`;
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
