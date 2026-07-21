@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import axios from 'axios';
 import { UserProvider }  from './context/UserContext';
 import { ToastProvider } from './context/ToastContext';
 import { LanguageProvider } from './context/LanguageContext';
@@ -7,6 +8,9 @@ import Navbar            from './components/Navbar';
 import Toast             from './components/Toast';
 import DocumentProcessor from './components/DocumentProcessor';
 import AIChatWidget      from './components/AIChatWidget';
+
+axios.defaults.baseURL = import.meta.env.VITE_API_URL || '';
+
 
 const Dashboard = React.lazy(() => import('./pages/Dashboard'));
 const Services  = React.lazy(() => import('./pages/Services'));
