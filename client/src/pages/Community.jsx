@@ -139,14 +139,15 @@ const Community = () => {
     try {
       const tagsArr = form.tags.split(',').map((t) => t.trim().toLowerCase()).filter(Boolean);
       await axios.post('/api/community', {
-        title:    form.title.trim(),
-        content:  form.content.trim(),
-        category: form.category,
-        tags:     tagsArr,
-        userId:   user._id,
-        username: user.username,
-        district: user.district,
-        state:    user.state,
+        title:      form.title.trim(),
+        content:    form.content.trim(),
+        category:   form.category,
+        tags:       tagsArr,
+        userId:     user?._id || user?.id || user?.username || 'anonymous_user',
+        username:   user?.username || 'Citizen',
+        authorName: user?.username || 'Citizen',
+        district:   user?.district || 'Chennai',
+        state:      user?.state || 'Tamil Nadu',
       });
       setForm({ title: '', content: '', category: 'General', tags: '' });
       setShowForm(false);

@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const communityPostSchema = new mongoose.Schema(
   {
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      type: String,
       required: [true, 'User ID is required'],
+      trim: true,
     },
     authorName: {
       type: String,
@@ -22,14 +22,14 @@ const communityPostSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Post title is required'],
       trim: true,
-      minlength: [5, 'Title must be at least 5 characters'],
+      minlength: [3, 'Title must be at least 3 characters'],
       maxlength: [150, 'Title cannot exceed 150 characters'],
     },
     content: {
       type: String,
       required: [true, 'Post content is required'],
       trim: true,
-      minlength: [10, 'Content must be at least 10 characters'],
+      minlength: [5, 'Content must be at least 5 characters'],
       maxlength: [2000, 'Content cannot exceed 2000 characters'],
     },
     upvotesCount: {
@@ -38,8 +38,7 @@ const communityPostSchema = new mongoose.Schema(
       min: [0, 'Upvotes count cannot be negative'],
     },
     upvotedBy: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: 'User',
+      type: [String],
       default: [],
     },
   },

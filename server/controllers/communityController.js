@@ -7,41 +7,50 @@ const User = require('../models/User');
 // ──────────────────────────────────────────────────────────────────────────────
 const createPost = async (req, res) => {
   try {
-    const { userId, title, content } = req.body;
+    const mongoose = require('mongoose');
+    const { userId, authorName, district, title, content } = req.body;
 
-    if (!userId || !title || !content) {
+    if (!title || !content) {
       return res.status(400).json({
         success: false,
-        message: 'userId, title, and content are required.',
+        message: 'title and content are required.',
       });
     }
 
-    // Fetch user to get their authorName and district
-    const user = await User.findById(userId).lean();
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: 'User not found.',
-      });
+    const effectiveUserId = userId || req.body.username || 'anonymous_user';
+
+    // Fetch user by ID or username
+    let user = null;
+    if (effectiveUserId && effectiveUserId !== 'anonymous_user') {
+      if (mongoose.Types.ObjectId.isValid(effectiveUserId)) {
+        user = await User.findById(effectiveUserId).lean();
+      }
+      if (!user) {
+        user = await User.findOne({ username: effectiveUserId }).lean();
+      }
     }
+
+    const finalAuthorName = authorName || (user ? (user.profile?.fullName || user.username) : 'Citizen Author');
+    const finalDistrict = district || (user ? user.district : 'Chennai') || 'Chennai';
 
     const newPost = new CommunityPost({
-      userId,
-      authorName: user.profile?.fullName || user.username,
-      district: user.district,
-      title: title.trim(),
-      content: content.trim(),
+      userId: user ? user._id.toString() : String(effectiveUserId),
+      authorName: String(finalAuthorName).trim(),
+      district: String(finalDistrict).trim(),
+      title: String(title).trim(),
+      content: String(content).trim(),
     });
 
     const savedPost = await newPost.save();
 
     // Award XP for posting to the community
-    const XP_FOR_POST = 25;
-    await User.findByIdAndUpdate(
-      userId,
-      { $inc: { citizenXP: XP_FOR_POST } },
-      { runValidators: false }
-    );
+    if (user) {
+      await User.findByIdAndUpdate(
+        user._id,
+        { $inc: { citizenXP: 25 } },
+        { runValidators: false }
+      );
+    }
 
     return res.status(201).json({
       success: true,

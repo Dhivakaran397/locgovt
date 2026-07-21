@@ -8,9 +8,9 @@ const feedbackSchema = new mongoose.Schema(
       required: [true, 'Service ID is required'],
     },
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      type: String,
       required: [true, 'User ID is required'],
+      trim: true,
     },
     userDistrict: {
       type: String,
@@ -26,11 +26,7 @@ const feedbackSchema = new mongoose.Schema(
     processingTimeframe: {
       type: String,
       required: [true, 'Processing timeframe is required'],
-      enum: {
-        values: ['Under 3 Days', '1 Week', '2-4 Weeks', 'Over a Month'],
-        message:
-          'Processing timeframe must be one of: Under 3 Days, 1 Week, 2-4 Weeks, Over a Month',
-      },
+      trim: true,
     },
     citizenComment: {
       type: String,
