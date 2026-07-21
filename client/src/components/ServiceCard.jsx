@@ -274,7 +274,11 @@ const GuidelinesModal = ({ service, onClose, t }) => {
   });
   const [showVideoModal, setShowVideoModal] = useState(false);
   const cleanTitle = (service?.serviceName || '').replace(/—|-|\(.*?\)/g, ' ').replace(/\s+/g, ' ').trim();
-  const youtubeSearchUrl = service?.videoUrl || `https://www.youtube.com/results?search_query=${encodeURIComponent(cleanTitle + ' how to apply step by step tutorial')}`;
+  const youtubeSearchUrl = service?.videoUrl || (
+    cleanTitle.toLowerCase().includes('aadhaar')
+      ? 'https://youtu.be/oNFAbvzfsNQ'
+      : `https://www.youtube.com/results?search_query=${encodeURIComponent(cleanTitle + ' how to apply step by step tutorial')}`
+  );
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -389,7 +393,7 @@ const GuidelinesModal = ({ service, onClose, t }) => {
                     title={`${cleanTitle} Tutorial`}
                     src={(() => {
                       const n = (service?.serviceName || '').toLowerCase();
-                      if (n.includes('aadhaar')) return 'https://www.youtube.com/embed/gU9G7nUa5Q8';
+                      if (n.includes('aadhaar')) return 'https://www.youtube.com/embed/oNFAbvzfsNQ';
                       if (n.includes('sevai') || n.includes('tnega')) return 'https://www.youtube.com/embed/5D_1S5_0m0Y';
                       if (n.includes('passport')) return 'https://www.youtube.com/embed/J7Y1h-6-N8w';
                       if (n.includes('voter')) return 'https://www.youtube.com/embed/v9C2gK2N7-Q';

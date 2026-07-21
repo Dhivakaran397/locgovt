@@ -642,7 +642,7 @@ const SEED_SERVICES = [
     globalClickCount: 1950,
     districtWiseClicks: { 'Delhi': 310, 'Chennai': 240, 'Hyderabad': 200, 'Coimbatore': 520 },
     currentStatus: { indicator: 'UP', downVotesCount: 0 },
-    videoUrl: 'https://www.youtube.com/watch?v=F0f5rX7n-3s',
+    videoUrl: 'https://youtu.be/oNFAbvzfsNQ',
     guidelines: {
       en: [
         'Verify that your mobile number is linked to Aadhaar to receive the 6-digit verification OTP.',
