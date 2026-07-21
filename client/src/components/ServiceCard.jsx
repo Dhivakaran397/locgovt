@@ -272,7 +272,6 @@ const GuidelinesModal = ({ service, onClose, t }) => {
   const [guideLocale, setGuideLocale] = useState(() => {
     return t('navHome') === 'முகப்பு' ? 'ta' : t('navHome') === 'होम' ? 'hi' : 'en';
   });
-  const [showVideoModal, setShowVideoModal] = useState(false);
   const cleanTitle = (service?.serviceName || '').replace(/—|-|\(.*?\)/g, ' ').replace(/\s+/g, ' ').trim();
   const youtubeSearchUrl = service?.videoUrl || (
     cleanTitle.toLowerCase().includes('aadhaar')
@@ -358,73 +357,19 @@ const GuidelinesModal = ({ service, onClose, t }) => {
                 {guideLocale === 'ta' ? 'விண்ணப்பிப்பது எப்படி என்ற வீடியோ விளக்கம்' : guideLocale === 'hi' ? 'आवेदन करने की चरण-दर-चरण प्रक्रिया' : 'Step-by-step application walkthrough'}
               </p>
             </div>
-            <button
-              type="button"
-              onClick={() => setShowVideoModal(true)}
+            <a
+              href={youtubeSearchUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-1.5 px-3 py-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white rounded font-display text-[9px] font-black tracking-wider uppercase transition-all shadow-sm shrink-0 cursor-pointer"
               id={`video-tutorial-btn-${service._id}`}
             >
               <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                 <path d="M23.498 6.163a3.003 3.003 0 00-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 00-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 002.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 002.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
               </svg>
-              <span>{guideLocale === 'ta' ? 'வீடியோவை பார்க்க' : guideLocale === 'hi' ? 'वीडियो देखें' : 'WATCH TUTORIAL'}</span>
-            </button>
+              <span>{guideLocale === 'ta' ? 'வீடியோவை பார்க்க ↗' : guideLocale === 'hi' ? 'वीडियो देखें ↗' : 'WATCH TUTORIAL ↗'}</span>
+            </a>
           </div>
-
-          {showVideoModal && (
-            <div className="fixed inset-0 z-[100] bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
-              <div className="bg-slate-900 border border-slate-700 text-white rounded-xl max-w-2xl w-full p-5 space-y-4 shadow-2xl animate-scale-up">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
-                    <h3 className="font-display font-black text-sm text-white truncate max-w-md">
-                      {cleanTitle} — Step-by-Step Tutorial
-                    </h3>
-                  </div>
-                  <button
-                    onClick={() => setShowVideoModal(false)}
-                    className="text-slate-400 hover:text-white font-mono text-lg p-1"
-                  >
-                    ✕
-                  </button>
-                </div>
-                <div className="aspect-video w-full bg-black rounded-lg overflow-hidden border border-slate-800 shadow-inner relative">
-                  <iframe
-                    title={`${cleanTitle} Tutorial`}
-                    src={(() => {
-                      const n = (service?.serviceName || '').toLowerCase();
-                      if (n.includes('aadhaar')) return 'https://www.youtube.com/embed/oNFAbvzfsNQ';
-                      if (n.includes('sevai') || n.includes('tnega')) return 'https://www.youtube.com/embed/5D_1S5_0m0Y';
-                      if (n.includes('passport')) return 'https://www.youtube.com/embed/J7Y1h-6-N8w';
-                      if (n.includes('voter')) return 'https://www.youtube.com/embed/v9C2gK2N7-Q';
-                      if (n.includes('ayushman') || n.includes('pm-jay')) return 'https://www.youtube.com/embed/W9x7qK-N7qQ';
-                      if (n.includes('kisan')) return 'https://www.youtube.com/embed/L9w7qK-N7qQ';
-                      return 'https://www.youtube.com/embed/gU9G7nUa5Q8';
-                    })()}
-                    className="w-full h-full border-0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </div>
-                <div className="flex items-center justify-between gap-3 pt-1">
-                  <a
-                    href={youtubeSearchUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-3.5 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold font-mono rounded transition-colors"
-                  >
-                    Open in YouTube App ↗
-                  </a>
-                  <button
-                    onClick={() => setShowVideoModal(false)}
-                    className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded"
-                  >
-                    Close Video
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
 
           <div className="border-t border-slate-100 pt-3">
             <span className="text-[10px] font-bold font-mono text-slate-400 block mb-2">
