@@ -4,6 +4,7 @@ import { useUser } from '../context/UserContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useToast } from '../context/ToastContext';
 import ServiceCard from '../components/ServiceCard';
+import ScholarshipRecommender from '../components/ScholarshipRecommender';
 
 const STREAMS = {
   school: [
@@ -146,6 +147,8 @@ const Students = () => {
   const [total,     setTotal]     = useState(0);
   const [layout,    setLayout]    = useState('grid');
 
+  const [activeTab, setActiveTab] = useState('hub'); // 'hub' or 'recommender'
+
   // Guidance Hub States
   const [stage, setStage] = useState('school'); // 'school' or 'college'
   const [selectedStream, setSelectedStream] = useState('science');
@@ -247,7 +250,32 @@ const Students = () => {
         </div>
       </section>
 
-      {/* ── INTERACTIVE STUDENT GUIDANCE & ELIGIBILITY HUB ───────────────────── */}
+      {/* ── TAB NAVIGATION ─────────────────────────────────────────── */}
+      <div className="flex bg-slate-100 p-1.5 rounded-xl border border-slate-200 shadow-inner">
+        <button
+          onClick={() => setActiveTab('hub')}
+          className={`flex-1 py-2.5 px-4 text-sm font-bold font-display rounded-lg transition-all ${
+            activeTab === 'hub' ? 'bg-white text-gov-navy shadow-sm' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50/50'
+          }`}
+        >
+          {locale === 'ta' ? 'மாணவர் வழிகாட்டி & திட்டங்கள்' : locale === 'hi' ? 'छात्र मार्गदर्शन' : 'Student Guidance Hub'}
+        </button>
+        <button
+          onClick={() => setActiveTab('recommender')}
+          className={`flex-1 py-2.5 px-4 text-sm font-bold font-display rounded-lg transition-all flex items-center justify-center gap-2 ${
+            activeTab === 'recommender' ? 'bg-gov-navy text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50/50'
+          }`}
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+          {locale === 'ta' ? 'AI கல்வி உதவித்தொகை தேடல்' : locale === 'hi' ? 'एआई छात्रवृत्ति खोजकर्ता' : 'AI Scholarship Finder'}
+        </button>
+      </div>
+
+      {activeTab === 'recommender' && <ScholarshipRecommender />}
+
+      {activeTab === 'hub' && (
+        <>
+          {/* ── INTERACTIVE STUDENT GUIDANCE & ELIGIBILITY HUB ───────────────────── */}
       <section className="glass-card p-6 space-y-6 shadow-sm border border-slate-200 bg-white/70 relative overflow-hidden rounded-xl">
         <div className="absolute top-0 left-0 right-0 h-1 bg-gov-navy" />
         <div className="space-y-1.5">
@@ -847,6 +875,8 @@ const Students = () => {
             {t('servicesNext')}
           </button>
         </nav>
+      )}
+      </>
       )}
 
     </main>
