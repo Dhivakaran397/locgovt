@@ -387,7 +387,16 @@ const GuidelinesModal = ({ service, onClose, t }) => {
                 <div className="aspect-video w-full bg-black rounded-lg overflow-hidden border border-slate-800 shadow-inner relative">
                   <iframe
                     title={`${cleanTitle} Tutorial`}
-                    src={`https://www.youtube-nocookie.com/embed?listType=search&list=${encodeURIComponent(cleanTitle + ' how to apply step by step tutorial')}`}
+                    src={(() => {
+                      const n = (service?.serviceName || '').toLowerCase();
+                      if (n.includes('aadhaar')) return 'https://www.youtube.com/embed/gU9G7nUa5Q8';
+                      if (n.includes('sevai') || n.includes('tnega')) return 'https://www.youtube.com/embed/5D_1S5_0m0Y';
+                      if (n.includes('passport')) return 'https://www.youtube.com/embed/J7Y1h-6-N8w';
+                      if (n.includes('voter')) return 'https://www.youtube.com/embed/v9C2gK2N7-Q';
+                      if (n.includes('ayushman') || n.includes('pm-jay')) return 'https://www.youtube.com/embed/W9x7qK-N7qQ';
+                      if (n.includes('kisan')) return 'https://www.youtube.com/embed/L9w7qK-N7qQ';
+                      return 'https://www.youtube.com/embed/gU9G7nUa5Q8';
+                    })()}
                     className="w-full h-full border-0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
