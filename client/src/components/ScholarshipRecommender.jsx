@@ -85,6 +85,78 @@ const SCHOLARSHIPS_DB = [
       hi: 'तकनीकी शिक्षा प्राप्त करने वाली लड़कियों की उन्नति के लिए AICTE छात्रवृत्ति।'
     },
     url: 'https://scholarships.gov.in/'
+  },
+  {
+    id: 'ugc-single-girl',
+    name: { en: 'UGC Indira Gandhi Scholarship for Single Girl Child', ta: 'UGC இந்திரா காந்தி ஒற்றைப் பெண் குழந்தை உதவித்தொகை', hi: 'यूजीसी एकल बालिका छात्रवृत्ति' },
+    amount: { en: '₹36,200 / year', ta: '₹36,200 / வருடம்', hi: '₹36,200 / वर्ष' },
+    eligibility: { gender: ['female'], level: ['pg'] },
+    desc: {
+      en: 'Financial assistance to single girl child for pursuing Post Graduate courses to promote girl education.',
+      ta: 'பெண் கல்வியை ஊக்குவிக்க, குடும்பத்தின் ஒரே பெண் குழந்தையாக இருந்து முதுகலை பயிலும் மாணவிகளுக்கு உதவித்தொகை.',
+      hi: 'एकल बालिका के लिए स्नातकोत्तर पाठ्यक्रम करने के लिए वित्तीय सहायता।'
+    },
+    url: 'https://scholarships.gov.in/'
+  },
+  {
+    id: 'csss-merit',
+    name: { en: 'Central Sector Scheme of Scholarship (CSSS)', ta: 'மத்திய அரசின் கல்வி உதவித்தொகை (CSSS)', hi: 'केंद्रीय क्षेत्र छात्रवृत्ति योजना' },
+    amount: { en: '₹12,000 - ₹20,000 / year', ta: '₹12,000 - ₹20,000 / வருடம்', hi: '₹12,000 - ₹20,000 / वर्ष' },
+    eligibility: { level: ['ug', 'pg'] },
+    desc: {
+      en: 'Merit-based scholarship for college and university students belonging to low income families.',
+      ta: 'குறைந்த வருமானம் கொண்ட குடும்பங்களைச் சேர்ந்த கல்லூரியில் அதிக மதிப்பெண் பெறும் மாணவர்களுக்கு தகுதி அடிப்படையிலான உதவித்தொகை.',
+      hi: 'कॉलेज और विश्वविद्यालय के छात्रों के लिए योग्यता आधारित छात्रवृत्ति।'
+    },
+    url: 'https://scholarships.gov.in/'
+  },
+  {
+    id: 'pre-matric-minority',
+    name: { en: 'Pre-Matric Scholarship for Minorities', ta: 'சிறுபான்மையினருக்கான ப்ரீ-மெட்ரிக் கல்வி உதவித்தொகை', hi: 'अल्पसंख्यकों के लिए प्री-मैट्रिक छात्रवृत्ति' },
+    amount: { en: 'Admission Fee + Maintenance', ta: 'சேர்க்கைக் கட்டணம் + பராமரிப்பு படி', hi: 'प्रवेश शुल्क + रखरखाव' },
+    eligibility: { level: ['school_9_10'] },
+    desc: {
+      en: 'Scholarship for students belonging to minority communities studying in classes 9 to 10.',
+      ta: '9 மற்றும் 10 ஆம் வகுப்புகளில் பயிலும் சிறுபான்மையின (இஸ்லாமியர், கிறித்துவர், சீக்கியர்) மாணவர்களுக்கான உதவித்தொகை.',
+      hi: 'अल्पसंख्यक समुदायों के छात्रों के लिए कक्षा 9 से 10 तक अध्ययन करने के लिए।'
+    },
+    url: 'https://scholarships.gov.in/'
+  },
+  {
+    id: 'inspire-she',
+    name: { en: 'INSPIRE Scholarship for Higher Education (SHE)', ta: 'உயர்கல்விக்கான INSPIRE உதவித்தொகை', hi: 'इंस्पायर छात्रवृत्ति (SHE)' },
+    amount: { en: '₹80,000 / year', ta: '₹80,000 / வருடம்', hi: '₹80,000 / वर्ष' },
+    eligibility: { level: ['ug', 'pg'] },
+    desc: {
+      en: 'Scholarship offered by the Dept of Science & Technology for students pursuing Basic/Natural Sciences at UG & PG levels.',
+      ta: 'இளங்கலை மற்றும் முதுகலையில் அறிவியல் படிப்புகளை (B.Sc/M.Sc) படிக்கும் தலைசிறந்த மாணவர்களுக்கு மத்திய அறிவியல் துறை வழங்கும் மாபெரும் உதவித்தொகை.',
+      hi: 'विज्ञान और प्रौद्योगिकी विभाग द्वारा प्राकृतिक विज्ञान में यूजी/पीजी करने वाले छात्रों के लिए।'
+    },
+    url: 'https://online-inspire.gov.in/'
+  },
+  {
+    id: 'cm-award-scst',
+    name: { en: 'Chief Minister Award for SC/ST/SCC', ta: 'முதலமைச்சர் விருது உதவித்தொகை (SC/ST/SCC)', hi: 'मुख्यमंत्री पुरस्कार' },
+    amount: { en: '₹3,000 / year', ta: '₹3,000 / வருடம்', hi: '₹3,000 / वर्ष' },
+    eligibility: { community: ['sc', 'st', 'scc'], level: ['ug', 'pg'] },
+    desc: {
+      en: 'Award for SC/ST/SCC students who secure high marks in the 12th standard public examination.',
+      ta: '12 ஆம் வகுப்பு பொதுத் தேர்வில் அதிக மதிப்பெண் பெற்ற SC/ST/SCC மாணவர்களுக்கு அரசால் வழங்கப்படும் உதவித்தொகை.',
+      hi: '12वीं कक्षा में उच्च अंक प्राप्त करने वाले SC/ST छात्रों के लिए।'
+    },
+    url: 'https://ssp.tn.gov.in/'
+  },
+  {
+    id: 'aicte-saksham',
+    name: { en: 'AICTE Saksham Scholarship', ta: 'AICTE சக்‌ஷம் கல்வி உதவித்தொகை (மாற்றுத்திறனாளிகள்)', hi: 'सक्षम छात्रवृत्ति' },
+    amount: { en: '₹50,000 / year', ta: '₹50,000 / வருடம்', hi: '₹50,000 / वर्ष' },
+    eligibility: { level: ['ug', 'diploma'] },
+    desc: {
+      en: 'Financial support to Specially-abled students to pursue Technical Education (Degree/Diploma).',
+      ta: 'தொழில்நுட்பக் கல்வி பயிலும் மாற்றுத்திறனாளி மாணவர்களை ஊக்குவிப்பதற்காக AICTE வழங்கும் சிறப்பு உதவித்தொகை.',
+      hi: 'तकनीकी शिक्षा प्राप्त करने वाले विशेष रूप से विकलांग छात्रों के लिए वित्तीय सहायता।'
+    },
+    url: 'https://scholarships.gov.in/'
   }
 ];
 
