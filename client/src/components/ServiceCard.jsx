@@ -305,8 +305,8 @@ const GuidelinesModal = ({ service, onClose, t }) => {
       aria-modal="true"
       aria-labelledby="guide-title"
     >
-      <div className="modal-content max-w-md w-full p-6 space-y-4">
-        <div className="flex items-start justify-between gap-4">
+      <div className="glass-card max-w-xl w-full p-6 relative max-h-[85vh] overflow-y-auto space-y-4 animate-scale-up">
+        <div className="flex items-start justify-between gap-4 border-b border-slate-100 pb-3">
           <div className="min-w-0">
             <span className="badge badge-cyan text-[8px] font-mono mb-1 font-bold">
               {getHeader(guideLocale)}
@@ -317,7 +317,6 @@ const GuidelinesModal = ({ service, onClose, t }) => {
           </div>
           
           <div className="flex items-center gap-2 flex-shrink-0">
-            {/* Modal-specific language selector */}
             <select
               value={guideLocale}
               onChange={(e) => setGuideLocale(e.target.value)}
@@ -337,42 +336,79 @@ const GuidelinesModal = ({ service, onClose, t }) => {
         </div>
 
         <div className="border-t border-slate-100 pt-3 space-y-4">
-          {/* Full description display */}
           <div className="bg-slate-50 border border-slate-200 rounded p-3">
             <p className="text-xs text-slate-700 leading-relaxed font-medium">
               {service.description}
             </p>
           </div>
 
-          {/* Video Tutorial Section */}
           <div className="bg-red-50/60 border border-red-100 rounded-lg p-3.5 flex items-center justify-between gap-3 shadow-sm">
             <div className="min-w-0">
               <span className="text-[9px] font-bold font-mono text-red-500 tracking-wider block uppercase mb-1">
-                {guideLocale === 'ta' ? 'விண்ணப்ப வீடியோ வழிகாட்டி' : guideLocale === 'hi' ? 'आवेदन வீடியோ गाइड' : 'VIDEO TUTORIAL GUIDE'}
+                {guideLocale === 'ta' ? 'விண்ணப்ப வீடியோ வழிகாட்டி' : guideLocale === 'hi' ? 'आवेदन वीडियो गाइड' : 'VIDEO TUTORIAL GUIDE'}
               </span>
               <p className="text-slate-800 font-bold text-[11px] truncate leading-tight">
                 {guideLocale === 'ta' ? 'விண்ணப்பிப்பது எப்படி என்ற வீடியோ விளக்கம்' : guideLocale === 'hi' ? 'आवेदन करने की चरण-दर-चरण प्रक्रिया' : 'Step-by-step application walkthrough'}
               </p>
             </div>
-            <a
-              href={
-                service.videoUrl ||
-                `https://www.youtube.com/results?search_query=${encodeURIComponent(
-                  (service.serviceName || '').replace(/—|-|\(.*?\)/g, ' ').replace(/\s+/g, ' ').trim() + ' how to apply step by step tutorial'
-                )}`
-              }
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-3 py-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white rounded font-display text-[9px] font-black tracking-wider uppercase transition-all shadow-sm shrink-0"
+            <button
+              type="button"
+              onClick={() => setShowVideoModal(true)}
+              className="flex items-center gap-1.5 px-3 py-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white rounded font-display text-[9px] font-black tracking-wider uppercase transition-all shadow-sm shrink-0 cursor-pointer"
               id={`video-tutorial-btn-${service._id}`}
             >
-              {/* Premium Inline YouTube Play Icon SVG */}
               <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                 <path d="M23.498 6.163a3.003 3.003 0 00-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 00-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 002.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 002.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
               </svg>
               <span>{guideLocale === 'ta' ? 'வீடியோவை பார்க்க' : guideLocale === 'hi' ? 'वीडियो देखें' : 'WATCH TUTORIAL'}</span>
-            </a>
+            </button>
           </div>
+
+          {showVideoModal && (
+            <div className="fixed inset-0 z-[100] bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+              <div className="bg-slate-900 border border-slate-700 text-white rounded-xl max-w-2xl w-full p-5 space-y-4 shadow-2xl animate-scale-up">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
+                    <h3 className="font-display font-black text-sm text-white truncate max-w-md">
+                      {cleanTitle} — Step-by-Step Tutorial
+                    </h3>
+                  </div>
+                  <button
+                    onClick={() => setShowVideoModal(false)}
+                    className="text-slate-400 hover:text-white font-mono text-lg p-1"
+                  >
+                    ✕
+                  </button>
+                </div>
+                <div className="aspect-video w-full bg-black rounded-lg overflow-hidden border border-slate-800 shadow-inner relative">
+                  <iframe
+                    title={`${cleanTitle} Tutorial`}
+                    src={`https://www.youtube-nocookie.com/embed?listType=search&list=${encodeURIComponent(cleanTitle + ' how to apply step by step tutorial')}`}
+                    className="w-full h-full border-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+                <div className="flex items-center justify-between gap-3 pt-1">
+                  <a
+                    href={youtubeSearchUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-3.5 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold font-mono rounded transition-colors"
+                  >
+                    Open in YouTube App ↗
+                  </a>
+                  <button
+                    onClick={() => setShowVideoModal(false)}
+                    className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded"
+                  >
+                    Close Video
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
 
           <div className="border-t border-slate-100 pt-3">
             <span className="text-[10px] font-bold font-mono text-slate-400 block mb-2">

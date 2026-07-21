@@ -56,7 +56,7 @@ const createPost = async (req, res) => {
       success: true,
       message: 'Community post created successfully.',
       data: savedPost,
-      xpAwarded: XP_FOR_POST,
+      xpAwarded: 25,
     });
   } catch (error) {
     console.error('createPost error:', error.message);
