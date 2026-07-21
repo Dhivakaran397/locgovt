@@ -434,7 +434,7 @@ const Services = () => {
           }
 
           return (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div className={layout === 'grid' ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" : "flex flex-col gap-4"}>
               {filteredHelplines.map((h) => {
                 const displayTitle = locale === 'ta' ? h.titleTa : locale === 'hi' ? h.titleHi : h.title;
                 const displayDesc = locale === 'ta' ? h.descTa : locale === 'hi' ? h.descHi : h.desc;
@@ -500,7 +500,7 @@ const Services = () => {
           ))}
         </div>
       ) : services.length > 0 ? (
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4">
+        <div className={layout === 'grid' ? "grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4" : "flex flex-col gap-4"}>
           {services.map((s) => {
             // Localize category labels on service cards dynamically
             let localizedCat = s.category;
