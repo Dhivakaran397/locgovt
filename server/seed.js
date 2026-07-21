@@ -849,15 +849,6 @@ const enrichRemainingServices = () => {
       currentStatus: { indicator: 'UP', downVotesCount: 0 },
     },
     {
-      serviceName: 'National Scholarship Portal',
-      category: 'Education & Scholarships',
-      officialUrl: 'https://scholarships.gov.in',
-      description: 'Apply for pre-matric, post-matric, and merit cum means scholarships from central and state governments.',
-      globalClickCount: 1380,
-      districtWiseClicks: { 'Delhi': 210, 'Patna': 180, 'Jaipur': 150 },
-      currentStatus: { indicator: 'UP', downVotesCount: 0 },
-    },
-    {
       serviceName: 'UGC — University Grants Commission Portal',
       category: 'Education & Scholarships',
       officialUrl: 'https://www.ugc.gov.in',

@@ -7,6 +7,7 @@ const connectDB = require('./config/db');
 const serviceRoutes = require('./routes/serviceRoutes');
 const userRoutes = require('./routes/userRoutes');
 const communityRoutes = require('./routes/communityRoutes');
+const feedbackRoutes = require('./routes/feedbackRoutes');
 
 // ── Initialize Express Application ─────────────────────────────────────────
 const app = express();
@@ -52,6 +53,7 @@ if (process.env.NODE_ENV !== 'production') {
 app.use('/api/services', serviceRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/community', communityRoutes);
+app.use('/api/feedback', feedbackRoutes);
 
 // ── Health Check Endpoint ───────────────────────────────────────────────────
 app.get('/api/health', (_req, res) => {

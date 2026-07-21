@@ -355,7 +355,12 @@ const GuidelinesModal = ({ service, onClose, t }) => {
               </p>
             </div>
             <a
-              href={service.videoUrl || `https://www.youtube.com/results?search_query=how+to+apply+for+${encodeURIComponent(service.serviceName)}+step+by+step+tutorial`}
+              href={
+                service.videoUrl ||
+                `https://www.youtube.com/results?search_query=${encodeURIComponent(
+                  (service.serviceName || '').replace(/—|-|\(.*?\)/g, ' ').replace(/\s+/g, ' ').trim() + ' how to apply step by step tutorial'
+                )}`
+              }
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 px-3 py-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white rounded font-display text-[9px] font-black tracking-wider uppercase transition-all shadow-sm shrink-0"
