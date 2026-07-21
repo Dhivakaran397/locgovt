@@ -76,13 +76,18 @@ const FeedbackModal = ({ service, onClose }) => {
     setLoading(true);
     try {
       const payload = {
-        serviceId:   service._id,
+        serviceId:           service._id,
+        userId:              user?._id || user?.id || user?.username || 'anonymous_user',
+        username:            user?.username || 'Citizen',
+        district:            user?.district || 'Chennai',
+        userDistrict:        user?.district || 'Chennai',
         rating,
-        timeframe:   form.timeframe,
-        comment:     form.comment.trim(),
-        wasHelpful:  form.wasHelpful,
-        username:    user.username,
-        district:    user.district,
+        starRating:          rating,
+        timeframe:           form.timeframe,
+        processingTimeframe: form.timeframe,
+        comment:             form.comment.trim(),
+        citizenComment:      form.comment.trim(),
+        wasHelpful:          form.wasHelpful,
       };
       const res = await axios.post('/api/feedback', payload);
       const xpGain = res.data?.xpEarned || 30;
